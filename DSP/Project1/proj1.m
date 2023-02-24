@@ -4,7 +4,7 @@ t1=0:Trep:.01; %Define a vector representing time
 f_tone1=1000; %frequency for tone 1
 xt=cos(2*pi*f_tone1*t1); %will show xt for 0 to .01 continuous
 
-signal1_sp=fft(signal1); %fast fourier transform
+signal1_sp=fft(xt); %fast fourier transform
 signal1_sp_sf=fftshift(signal1_sp)
 %Comments for comprehension: fft will calculate the FT with the
 %frequencies bein in the range of -1/2 trep to 1.2 trep 
