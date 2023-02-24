@@ -6,6 +6,8 @@ xt=cos(2*pi*f_tone1*t1); %will show xt for 0 to .01 continuous
 
 signal1_sp=fft(xt); %fast fourier transform
 signal1_sp_sf=fftshift(signal1_sp)
+signal1_sp_asf=ifftshift(signal1_sp_sf); % Do ifftshift to prepare ifft
+signal1_rec=ifft(signal1_sp_asf); % Get the Inverse Fourier Transform
 %Comments for comprehension: fft will calculate the FT with the
 %frequencies bein in the range of -1/2 trep to 1.2 trep 
 %fft treats trep as the sampling period 
