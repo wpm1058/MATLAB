@@ -3,7 +3,12 @@ Trep=1e-6; %Define the time interval that will make singals look continuous
 t1=0:Trep:.01; %Define a vector representing time
 f_tone1=1000; %frequency for tone 1
 smpf = 5000;
-xt=cos(2*pi*f_tone1*t1); %will show xt for 0 to .01 continuous
+A=1e-3;
+raiseindex=max(find(t1<A));
+decayindex=max(find(t1<2*A));
+xt=zeros(size(t1)); %will show xt for 0 to .01 continuous
+xt(1:raiseindex)=t1(1:raiseindex)/A;
+xt(raiseindex+1:decayindex)=1-t1(1:raiseindex)/A;
 xjw=fft(xt); %fast fourier transform
 xjw = fftshift(xjw);
 f_axis=linspace(-1/Trep/2,1/Trep/2,length(xjw)); %this will be the x axis
@@ -20,7 +25,7 @@ xlabel("t");
 %%
 %Part 2 Calculate and Plot the Fourier Transform
 nexttile
-plot(f_axis,xjw);
+plot(f_axis,abs(xjw));
 title("x(j\omega)");
 ylabel("x(j\omega)");
 xlabel("\omega");

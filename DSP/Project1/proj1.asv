@@ -21,7 +21,7 @@ xlabel("t");
 %Part 2 Calculate and Plot the Fourier Transform
 nexttile
 plot(f_axis,xjw);
-title("x(j\omega)");
+title("FT x(t)");
 ylabel("x(j\omega)");
 xlabel("\omega");
 xlim([-4000 4000]);
@@ -29,7 +29,7 @@ xlim([-4000 4000]);
 %%
 %Part 3 Sample x(t) using p(t)
 pt = zeros(size(t1));
-pt(1:floor(1/smpf/Trep):end)=1;
+pt(1:(1/smpf)/Trep:end)=1;
 xst = xt .* pt;
 nexttile
 plot(t1,xst);
@@ -41,8 +41,8 @@ xlabel("t");
 %Part 4 Calculate and Plot Xs(jw) from xs(t)
 xsjw = fftshift(fft(xst));
 nexttile
-plot(f_axis,abs(xsjw));
-title("xs(j\omega)");
+plot(f_axis,abs(xjw));
+title("FT xs(t)");
 ylabel("xs(j\omega)");
 xlabel("\omega");
 xlim([-4000 4000]);
@@ -50,14 +50,14 @@ xlim([-4000 4000]);
 %%
 %Part 5 Ideally filter xst with lowpass filter.
 fil = zeros(size(f_axis));
-range = ((size(f_axis)-1)/2 + smpf/2)/2;
-fil(abs(f_axis)<(smpf/2)) = 1/smpf;
+range = (size(f_axis)-1)/2 + smpf/2;
+fil(range(1):range(end)) = 1/smpf;
 xrjw = xsjw .* fil;
-xrjw(find(abs(xrjw)<max(xrjw)/5))=0;
-scaleo = max(xjw)/max(xrjw)*xrjw;
+xrjw(find(abs(xrjw)<max(xrjw)/2))=0;
+scaleo = max(xsjw)/max(xrjw)*xrjw;
 nexttile
 plot(f_axis,abs(scaleo));
-title("xr(j\omega)");
+title("xr(jw)");
 ylabel("xr(j\omega)");
 xlabel("\omega");
 xlim([-4000 4000]);

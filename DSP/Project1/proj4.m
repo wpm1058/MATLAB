@@ -2,8 +2,8 @@ clear all; %Clear all variable in memory
 Trep=1e-6; %Define the time interval that will make singals look continuous
 t1=0:Trep:.01; %Define a vector representing time
 f_tone1=1000; %frequency for tone 1
-smpf = 5000;
-xt=cos(2*pi*f_tone1*t1); %will show xt for 0 to .01 continuous
+smpf = 7000;
+xt=cos(2*pi*f_tone1*t1).*cos(2*pi*3*f_tone1*t1); %will show xt for 0 to .01 continuous
 xjw=fft(xt); %fast fourier transform
 xjw = fftshift(xjw);
 f_axis=linspace(-1/Trep/2,1/Trep/2,length(xjw)); %this will be the x axis
